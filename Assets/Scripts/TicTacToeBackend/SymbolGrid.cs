@@ -17,12 +17,12 @@ namespace TicTacToeBackend
             grid = new Symbol?[sizeX, sizeY];
         }
 
-        public Symbol? GetSymbolAt(int gridPositionX, int gridPositionY)
+        public Symbol? GetSymbol(int gridPositionX, int gridPositionY)
         {
             return grid[gridPositionX, gridPositionY];
         }
 
-        public void AddSymbolAt(Symbol symbol, int gridPositionX, int gridPositionY)
+        public void AddSymbol(Symbol symbol, int gridPositionX, int gridPositionY)
         {
             if (ValidateCoordinates(gridPositionX, gridPositionY))
             {
@@ -36,9 +36,13 @@ namespace TicTacToeBackend
                         $"Tried to place a symbol on a cell [{gridPositionX}, {gridPositionY}] that already contains a symbol. This shouldn't be possible.");
                 }
             }
+            else
+            {
+                LogInvalidCoordinates(gridPositionX, gridPositionY);
+            }
         }
 
-        public void RemoveSymbolAt(int gridPositionX, int gridPositionY)
+        public void RemoveSymbol(int gridPositionX, int gridPositionY)
         {
             if (ValidateCoordinates(gridPositionX, gridPositionY))
             {
@@ -52,18 +56,20 @@ namespace TicTacToeBackend
                         $"Tried to remove a symbol from a cell [{gridPositionX}, {gridPositionY}] that is already empty. This shouldn't be possible.");
                 }
             }
+            else
+            {
+                LogInvalidCoordinates(gridPositionX, gridPositionY);
+            }
         }
 
         private bool ValidateCoordinates(int xToValidate, int yToValidate)
         {
-            bool isEveryCoordinateValid = xToValidate < SizeX && yToValidate < SizeY;
+            return xToValidate < SizeX && yToValidate < SizeY;
+        }
 
-            if (!isEveryCoordinateValid)
-            {
-                Debug.LogError($"Invalid {nameof(SymbolGrid)} coordinates. Input was [{xToValidate}, {yToValidate}] but the grid size is [{SizeX}, {SizeY}].");
-            }
-            
-            return isEveryCoordinateValid;
+        private void LogInvalidCoordinates(int gridPositionX, int gridPositionY)
+        {
+                Debug.LogError($"Invalid {nameof(SymbolGrid)} coordinates. Input was [{gridPositionX}, {gridPositionY}] but the grid size is [{SizeX}, {SizeY}].");
         }
     }
 }

@@ -1,20 +1,21 @@
+using System;
 using UnityEngine;
 
 namespace TicTacToeBackend
 {
     public class SymbolGrid
     {
-        public readonly int SizeX;
-        public readonly int SizeY;
+        public event EventHandler<SymbolAddedEventArgs> SymbolAdded;
+
+        public readonly int Size;
         
         private readonly Symbol?[,] grid;
 
-        public SymbolGrid(int sizeX, int sizeY)
+        public SymbolGrid(int size)
         {
-            SizeX = sizeX;
-            SizeY = sizeY;
+            Size = size;
 
-            grid = new Symbol?[sizeX, sizeY];
+            grid = new Symbol?[Size, Size];
         }
 
         public Symbol? GetSymbol(int gridPositionX, int gridPositionY)
@@ -29,6 +30,7 @@ namespace TicTacToeBackend
                 if (grid[gridPositionX, gridPositionY] == null)
                 {
                     grid[gridPositionX, gridPositionY] = symbol;
+                    SymbolAdded?.Invoke(this, new SymbolAddedEventArgs(symbol, gridPositionX, gridPositionY));
                 }
                 else
                 {
@@ -64,12 +66,12 @@ namespace TicTacToeBackend
 
         private bool ValidateCoordinates(int xToValidate, int yToValidate)
         {
-            return xToValidate < SizeX && yToValidate < SizeY;
+            return xToValidate < Size && yToValidate < Size;
         }
 
         private void LogInvalidCoordinates(int gridPositionX, int gridPositionY)
         {
-                Debug.LogError($"Invalid {nameof(SymbolGrid)} coordinates. Input was [{gridPositionX}, {gridPositionY}] but the grid size is [{SizeX}, {SizeY}].");
+                Debug.LogError($"Invalid {nameof(SymbolGrid)} coordinates. Input was [{gridPositionX}, {gridPositionY}] but the grid size is [{Size}, {Size}].");
         }
     }
 }

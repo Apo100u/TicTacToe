@@ -1,6 +1,6 @@
 using System;
 
-namespace TicTacToe.Model
+namespace TicTacToe.MVC.Model
 {
     public class GameEndedEventArgs : EventArgs
     {

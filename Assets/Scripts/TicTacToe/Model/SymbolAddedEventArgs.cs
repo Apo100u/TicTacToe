@@ -1,6 +1,6 @@
 using System;
 
-namespace TicTacToeModel
+namespace TicTacToe.Model
 {
     public class SymbolAddedEventArgs : EventArgs
     {

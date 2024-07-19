@@ -1,4 +1,4 @@
-namespace TicTacToeModel.Helpers
+namespace TicTacToe.Model.Helpers
 {
     public class ResultChecker
     {

@@ -1,4 +1,4 @@
-namespace TicTacToeModel.Commands
+namespace TicTacToe.Model.Commands
 {
     public abstract class Command
     {

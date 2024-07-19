@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace TicTacToeModel
+namespace TicTacToe.Model
 {
     public class SymbolGrid
     {

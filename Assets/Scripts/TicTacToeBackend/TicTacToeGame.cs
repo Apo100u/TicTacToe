@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TicTacToeBackend.Commands;
 using TicTacToeBackend.Helpers;
@@ -6,6 +7,8 @@ namespace TicTacToeBackend
 {
     public class TicTacToeGame
     {
+        public event EventHandler<GameEndedEventArgs> GameEnded;
+
         public readonly SymbolGrid Grid;
         
         private LinkedList<Command> commandsInOrder;
@@ -25,10 +28,10 @@ namespace TicTacToeBackend
 
         private void OnSymbolAdded(object sender, SymbolAddedEventArgs args)
         {
-            CheckIfAddedSymbolEndsGame(args.Symbol, args.GridPositionX, args.GridPositionY);
+            CheckForGameEnd(args.Symbol, args.GridPositionX, args.GridPositionY);
         }
 
-        private void CheckIfAddedSymbolEndsGame(Symbol symbol, int gridPositionX, int gridPositionY)
+        private void CheckForGameEnd(Symbol symbol, int gridPositionX, int gridPositionY)
         {
             ResultChecker resultChecker = new(Grid);
 
@@ -38,7 +41,8 @@ namespace TicTacToeBackend
 
             if (isGameEnded)
             {
-                
+                Symbol? winningSymbol = isSymbolWinning ? symbol : null;
+                GameEnded?.Invoke(this, new GameEndedEventArgs(winningSymbol));
             }
         }
     }

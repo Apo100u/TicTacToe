@@ -1,18 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 
-public class GameEndedEventArgs : MonoBehaviour
+namespace TicTacToeBackend
 {
-    // Start is called before the first frame update
-    void Start()
+    public class GameEndedEventArgs : EventArgs
     {
-        
-    }
+        public readonly Symbol? Winner;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public GameEndedEventArgs(Symbol? winner)
+        {
+            Winner = winner;
+        }
     }
 }

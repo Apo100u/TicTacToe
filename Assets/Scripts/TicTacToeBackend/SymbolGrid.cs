@@ -8,14 +8,22 @@ namespace TicTacToeBackend
         public event EventHandler<SymbolAddedEventArgs> SymbolAdded;
 
         public readonly int Size;
-        
+
         private readonly Symbol?[,] grid;
+        
+        private int emptyCellsCount;
 
         public SymbolGrid(int size)
         {
             Size = size;
 
             grid = new Symbol?[Size, Size];
+            emptyCellsCount = Size * Size;
+        }
+
+        public bool IsEveryCellOccupied()
+        {
+            return emptyCellsCount == 0;
         }
 
         public Symbol? GetSymbol(int gridPositionX, int gridPositionY)
@@ -30,6 +38,8 @@ namespace TicTacToeBackend
                 if (grid[gridPositionX, gridPositionY] == null)
                 {
                     grid[gridPositionX, gridPositionY] = symbol;
+                    emptyCellsCount--;
+                    
                     SymbolAdded?.Invoke(this, new SymbolAddedEventArgs(symbol, gridPositionX, gridPositionY));
                 }
                 else
@@ -51,6 +61,7 @@ namespace TicTacToeBackend
                 if (grid[gridPositionX, gridPositionY] != null)
                 {
                     grid[gridPositionX, gridPositionY] = null;
+                    emptyCellsCount++;
                 }
                 else
                 {

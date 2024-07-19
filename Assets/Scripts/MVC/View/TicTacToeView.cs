@@ -1,12 +1,15 @@
 using TicTacToe.MVC.Model;
+using TicTacToe.ScriptableObjects;
 using UnityEngine;
 
 namespace TicTacToe.MVC.View
 {
     public class TicTacToeView : MonoBehaviour
     {
-        private SymbolWidget[,] symbolWidgets;
+        [field: SerializeField] public GameSettings GameSettings { get; private set; }
         
+        private SymbolWidget[,] symbolWidgets;
+
         public void Init(SymbolWidget[] symbolWidgets, int gridSize)
         {
             this.symbolWidgets = new SymbolWidget[gridSize, gridSize];
@@ -18,6 +21,9 @@ namespace TicTacToe.MVC.View
         {
             for (int i = 0; i < symbolWidgets.Length; i++)
             {
+                symbolWidgets[i].Init(this);
+                symbolWidgets[i].ChangeSymbol(null);
+                
                 int gridPositionX = symbolWidgets[i].GridPositionX;
                 int gridPositionY = symbolWidgets[i].GridPositionY;
 

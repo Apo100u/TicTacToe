@@ -1,9 +1,7 @@
 {
-    "name": "MVC",
+    "name": "ScriptableObjects",
     "rootNamespace": "",
-    "references": [
-        "GUID:542e25c199d01834db703d1755874181"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

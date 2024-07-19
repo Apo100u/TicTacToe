@@ -1,6 +1,6 @@
 using System;
 
-namespace TicTacToeBackend
+namespace TicTacToeModel
 {
     public class GameEndedEventArgs : EventArgs
     {

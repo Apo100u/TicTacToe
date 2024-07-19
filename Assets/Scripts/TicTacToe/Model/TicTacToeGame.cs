@@ -10,8 +10,8 @@ namespace TicTacToe.Model
         public event EventHandler<GameEndedEventArgs> GameEnded;
 
         public readonly SymbolGrid Grid;
-        
-        private LinkedList<Command> commandsInOrder;
+
+        private LinkedList<Command> commandsInOrder = new();
 
         public TicTacToeGame(SymbolGrid grid)
         {

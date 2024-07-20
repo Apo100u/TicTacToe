@@ -1,14 +1,13 @@
 using System;
+using TicTacToe.MVC.Controller;
 using TicTacToe.MVC.Model;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace TicTacToe.MVC.View
 {
-    public class SymbolWidget : MonoBehaviour
+    public class SymbolWidget : GridWidget
     {
-        [field: SerializeField] public int GridPositionX { get; private set; }
-        [field: SerializeField] public int GridPositionY { get; private set; }
         [SerializeField] private Image displayImage;
 
         private TicTacToeView view;

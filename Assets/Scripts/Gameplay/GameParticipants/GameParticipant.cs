@@ -1,8 +1,19 @@
+using TicTacToe.Gameplay.MVC.Model;
+
 namespace TicTacToe.Gameplay.GameParticipants
 {
     public abstract class GameParticipant
     {
-        public abstract void StartTurn();
-        public abstract void StartEnd();
+        public Symbol Symbol { get; private set; }
+        
+        public void AssignSymbol(Symbol symbol)
+        {
+            Symbol = symbol;
+        }
+
+        public virtual void MakeMove()
+        {
+            
+        }
     }
 }

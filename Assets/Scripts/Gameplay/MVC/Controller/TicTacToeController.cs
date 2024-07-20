@@ -1,6 +1,6 @@
 using TicTacToe.Gameplay.MVC.Model;
-using TicTacToe.Gameplay.MVC.View;
 using TicTacToe.Gameplay.MVC.Model.Commands;
+using TicTacToe.Gameplay.MVC.View;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,16 +14,21 @@ namespace TicTacToe.Gameplay.MVC.Controller
         [SerializeField] private int gridSize;
 
         private TicTacToeGame ticTacToeGame;
+        private Symbol nextSymbol;
 
-        public void Init(TicTacToeGame ticTacToeGame)
+        public void Init()
         {
-            this.ticTacToeGame = ticTacToeGame;
             view.Init(symbolWidgets, gridSize);
-
-            SetUpInteractions(gridButtons);
+            ticTacToeGame = new TicTacToeGame(new SymbolGrid(gridSize));
+            SetUpButtonsInteractions();
         }
 
-        private void SetUpInteractions(GridWidget[] gridButtons)
+        public void SetNextSymbol(Symbol symbol)
+        {
+            nextSymbol = symbol;
+        }
+
+        private void SetUpButtonsInteractions()
         {
             for (int i = 0; i < gridButtons.Length; i++)
             {
@@ -36,7 +41,10 @@ namespace TicTacToe.Gameplay.MVC.Controller
 
         private void OnInteractionButtonClicked(GridWidget gridButton)
         {
+            AddSymbolCommand addSymbolCommand = new(nextSymbol, gridButton.GridPositionX, gridButton.GridPositionY);
             
+            ticTacToeGame.ExecuteCommand(addSymbolCommand);
+            view.UpdateSymbolWidget(gridButton.GridPositionX, gridButton.GridPositionY, nextSymbol);
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using TicTacToe.Gameplay.MVC.Model;
 using TicTacToe.Gameplay.MVC.Model.Commands;
 using TicTacToe.Gameplay.MVC.View;
@@ -8,6 +9,8 @@ namespace TicTacToe.Gameplay.MVC.Controller
 {
     public class TicTacToeController : MonoBehaviour
     {
+        public event EventHandler MoveMade; 
+
         [SerializeField] private TicTacToeView view;
         [SerializeField] private SymbolWidget[] symbolWidgets;
         [SerializeField] private GridWidget[] gridButtons;
@@ -20,7 +23,7 @@ namespace TicTacToe.Gameplay.MVC.Controller
         {
             view.Init(symbolWidgets, gridSize);
             ticTacToeGame = new TicTacToeGame(new SymbolGrid(gridSize));
-            SetUpButtonsInteractions();
+            SetUpGridButtonsInteractions();
         }
 
         public void SetNextSymbol(Symbol symbol)
@@ -28,23 +31,32 @@ namespace TicTacToe.Gameplay.MVC.Controller
             nextSymbol = symbol;
         }
 
-        private void SetUpButtonsInteractions()
+        public void InteractWithRandomEmptyCell()
+        {
+            ticTacToeGame.Grid.GetRandomEmptyCellGridPosition(out int gridPositionX, out int gridPositionY);
+            OnGridCellInteracted(gridPositionX, gridPositionY);
+        }
+
+        private void SetUpGridButtonsInteractions()
         {
             for (int i = 0; i < gridButtons.Length; i++)
             {
-                int gridButtonIndex = i;
+                int gridPositionX = gridButtons[i].GridPositionX;
+                int gridPositionY = gridButtons[i].GridPositionY;
                 Button button = gridButtons[i].GetComponent<Button>();
                 
-                button.onClick.AddListener(() => OnInteractionButtonClicked(gridButtons[gridButtonIndex]));
+                button.onClick.AddListener(() => OnGridCellInteracted(gridPositionX, gridPositionY));
             }
         }
 
-        private void OnInteractionButtonClicked(GridWidget gridButton)
+        private void OnGridCellInteracted(int gridPositionX, int gridPositionY)
         {
-            AddSymbolCommand addSymbolCommand = new(nextSymbol, gridButton.GridPositionX, gridButton.GridPositionY);
+            AddSymbolCommand addSymbolCommand = new(nextSymbol, gridPositionX, gridPositionY);
             
             ticTacToeGame.ExecuteCommand(addSymbolCommand);
-            view.UpdateSymbolWidget(gridButton.GridPositionX, gridButton.GridPositionY, nextSymbol);
+            view.UpdateSymbolWidget(gridPositionX, gridPositionY, nextSymbol);
+
+            MoveMade?.Invoke(this, EventArgs.Empty);
         }
     }
 }

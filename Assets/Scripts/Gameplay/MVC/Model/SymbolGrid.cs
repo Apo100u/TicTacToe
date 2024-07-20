@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace TicTacToe.Gameplay.MVC.Model
 {
@@ -12,12 +14,14 @@ namespace TicTacToe.Gameplay.MVC.Model
         private readonly Symbol?[,] grid;
         
         private int emptyCellsCount;
+        private bool[,] occupiedCells;
 
         public SymbolGrid(int size)
         {
             Size = size;
 
             grid = new Symbol?[Size, Size];
+            occupiedCells = new bool[Size, Size];
             emptyCellsCount = Size * Size;
         }
 
@@ -38,6 +42,7 @@ namespace TicTacToe.Gameplay.MVC.Model
                 if (grid[gridPositionX, gridPositionY] == null)
                 {
                     grid[gridPositionX, gridPositionY] = symbol;
+                    occupiedCells[gridPositionX, gridPositionY] = true;
                     emptyCellsCount--;
                     
                     SymbolAdded?.Invoke(this, new SymbolAddedEventArgs(symbol, gridPositionX, gridPositionY));
@@ -61,6 +66,7 @@ namespace TicTacToe.Gameplay.MVC.Model
                 if (grid[gridPositionX, gridPositionY] != null)
                 {
                     grid[gridPositionX, gridPositionY] = null;
+                    occupiedCells[gridPositionX, gridPositionY] = false;
                     emptyCellsCount++;
                 }
                 else
@@ -73,6 +79,26 @@ namespace TicTacToe.Gameplay.MVC.Model
             {
                 LogInvalidCoordinates(gridPositionX, gridPositionY);
             }
+        }
+
+        public void GetRandomEmptyCellGridPosition(out int gridPositionX, out int gridPositionY)
+        {
+            List<(int x, int y)> emptyCellsGridPositions = new();
+
+            for (int i = 0; i < Size; i++)
+            {
+                for (int j = 0; j < Size; j++)
+                {
+                    if (!occupiedCells[i, j])
+                    {
+                        emptyCellsGridPositions.Add((i, j));
+                    }
+                }
+            }
+
+            (int x, int y) = emptyCellsGridPositions[Random.Range(0, emptyCellsGridPositions.Count)];
+            gridPositionX = x;
+            gridPositionY = y;
         }
 
         private bool ValidateCoordinates(int xToValidate, int yToValidate)

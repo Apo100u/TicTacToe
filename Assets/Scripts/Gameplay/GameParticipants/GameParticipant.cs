@@ -1,3 +1,4 @@
+using TicTacToe.Gameplay.MVC.Controller;
 using TicTacToe.Gameplay.MVC.Model;
 
 namespace TicTacToe.Gameplay.GameParticipants
@@ -11,7 +12,7 @@ namespace TicTacToe.Gameplay.GameParticipants
             Symbol = symbol;
         }
 
-        public virtual void MakeMove()
+        public virtual void StartTurn(TicTacToeController ticTacToeController)
         {
             
         }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TicTacToe.Gameplay.GameParticipants;
 using TicTacToe.Gameplay.MVC.Controller;
@@ -11,8 +12,17 @@ namespace TicTacToe.Gameplay
     {
         [SerializeField] private TicTacToeController ticTacToeController;
 
-        private GameParticipant participantOnMove;
+        private int participantOnMoveIndex;
         private GameParticipant[] gameParticipants;
+
+        private void Start()
+        {
+            HumanParticipant test1 = new();
+            ComputerParticipant test2 = new();
+            
+            Init(new GameParticipant[]{test1, test2});
+            StartTicTacToeGame();
+        }
 
         public void Init(GameParticipant[] gameParticipants)
         {
@@ -24,9 +34,30 @@ namespace TicTacToe.Gameplay
 
         public void StartTicTacToeGame()
         {
-            participantOnMove = gameParticipants[0];
+            ticTacToeController.MoveMade += OnMoveMade;
+            participantOnMoveIndex = 0;
+            
+            StartNextTurn();
+        }
+
+        private void OnMoveMade(object sender, EventArgs args)
+        {
+            participantOnMoveIndex++;
+
+            if (participantOnMoveIndex >= gameParticipants.Length)
+            {
+                participantOnMoveIndex = 0;
+            }
+            
+            StartNextTurn();
+        }
+
+        private void StartNextTurn()
+        {
+            GameParticipant participantOnMove = gameParticipants[participantOnMoveIndex];
             
             ticTacToeController.SetNextSymbol(participantOnMove.Symbol);
+            participantOnMove.StartTurn(ticTacToeController);
         }
 
         private void AssignSymbolsToParticipants()

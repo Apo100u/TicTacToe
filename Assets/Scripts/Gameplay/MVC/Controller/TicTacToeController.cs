@@ -1,19 +1,23 @@
-using TicTacToe.MVC.View;
+using TicTacToe.Gameplay.MVC.Model;
+using TicTacToe.Gameplay.MVC.View;
+using TicTacToe.Gameplay.MVC.Model.Commands;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace TicTacToe.MVC.Controller
+namespace TicTacToe.Gameplay.MVC.Controller
 {
     public class TicTacToeController : MonoBehaviour
     {
         [SerializeField] private TicTacToeView view;
-
         [SerializeField] private SymbolWidget[] symbolWidgets;
         [SerializeField] private GridWidget[] gridButtons;
         [SerializeField] private int gridSize;
 
-        public void Init()
+        private TicTacToeGame ticTacToeGame;
+
+        public void Init(TicTacToeGame ticTacToeGame)
         {
+            this.ticTacToeGame = ticTacToeGame;
             view.Init(symbolWidgets, gridSize);
 
             SetUpInteractions(gridButtons);

@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using TicTacToe.MVC.Model.Commands;
-using TicTacToe.MVC.Model.Helpers;
+using TicTacToe.Gameplay.MVC.Model.Commands;
+using TicTacToe.Gameplay.MVC.Model.Helpers;
 
-namespace TicTacToe.MVC.Model
+namespace TicTacToe.Gameplay.MVC.Model
 {
     public class TicTacToeGame
     {

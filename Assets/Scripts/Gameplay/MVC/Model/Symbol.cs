@@ -1,4 +1,4 @@
-namespace TicTacToe.MVC.Model
+namespace TicTacToe.Gameplay.MVC.Model
 {
     public enum Symbol
     {

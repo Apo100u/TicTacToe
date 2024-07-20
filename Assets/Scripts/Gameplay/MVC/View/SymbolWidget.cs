@@ -1,10 +1,10 @@
 using System;
-using TicTacToe.MVC.Controller;
-using TicTacToe.MVC.Model;
+using TicTacToe.Gameplay.MVC.Controller;
+using TicTacToe.Gameplay.MVC.Model;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace TicTacToe.MVC.View
+namespace TicTacToe.Gameplay.MVC.View
 {
     public class SymbolWidget : GridWidget
     {
@@ -17,7 +17,7 @@ namespace TicTacToe.MVC.View
         {
             this.view = view;
         }
-        
+
         public void ChangeSymbol(Symbol? symbol)
         {
             currentlyDisplayedSymbol = symbol;
@@ -30,10 +30,7 @@ namespace TicTacToe.MVC.View
                 _ => throw new ArgumentOutOfRangeException(nameof(symbol), symbol, null)
             };
 
-            if (symbol == null)
-            {
-                gameObject.SetActive(false);
-            }
+            gameObject.SetActive(symbol != null);
         }
     }
 }

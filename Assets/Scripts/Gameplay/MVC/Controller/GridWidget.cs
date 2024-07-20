@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TicTacToe.MVC.Controller
+namespace TicTacToe.Gameplay.MVC.Controller
 {
     public class GridWidget : MonoBehaviour
     {

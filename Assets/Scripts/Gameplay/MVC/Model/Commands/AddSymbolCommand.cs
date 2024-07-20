@@ -1,4 +1,4 @@
-namespace TicTacToe.MVC.Model.Commands
+namespace TicTacToe.Gameplay.MVC.Model.Commands
 {
     public class AddSymbolCommand : Command
     {

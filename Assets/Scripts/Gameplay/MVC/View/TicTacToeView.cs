@@ -5,9 +5,10 @@ namespace TicTacToe.Gameplay.MVC.View
 {
     public class TicTacToeView : MonoBehaviour
     {
+        public (int x, int y) CurrentHintGridPosition { get; private set; }
+        
         private SymbolWidget[,] symbolWidgets;
         private bool isShowingHint;
-        private (int x, int y) currentHintGridPosition;
 
         public void Init(SymbolWidget[] symbolWidgets, int gridSize)
         {
@@ -33,7 +34,7 @@ namespace TicTacToe.Gameplay.MVC.View
             {
                 ShowSymbol(gridPositionX, gridPositionY, symbol, true);
                 isShowingHint = true;
-                currentHintGridPosition = (gridPositionX, gridPositionY);
+                CurrentHintGridPosition = (gridPositionX, gridPositionY);
             }
         }
 
@@ -41,9 +42,14 @@ namespace TicTacToe.Gameplay.MVC.View
         {
             if (isShowingHint)
             {
-                HideSymbol(currentHintGridPosition.x, currentHintGridPosition.y);
+                HideSymbol(CurrentHintGridPosition.x, CurrentHintGridPosition.y);
                 isShowingHint = false;
             }
+        }
+
+        public Symbol? GetDisplayedSymbol(int gridPositionX, int gridPositionY)
+        {
+            return symbolWidgets[gridPositionX, gridPositionY].DisplayedSymbol;
         }
 
         private void SetUpSymbolWidgets(SymbolWidget[] symbolWidgets)

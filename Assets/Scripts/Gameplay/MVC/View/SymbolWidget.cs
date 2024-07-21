@@ -11,13 +11,13 @@ namespace TicTacToe.Gameplay.MVC.View
         private const float HintAlpha = 0.5f;
         private const float DefaultAlpha = 1f;
         
-        [SerializeField] private Image displayImage;
+        public Symbol? DisplayedSymbol { get; private set; }
 
-        private Symbol? currentlyDisplayedSymbol;
+        [SerializeField] private Image displayImage;
 
         public void ChangeSymbol(Symbol? symbol)
         {
-            currentlyDisplayedSymbol = symbol;
+            DisplayedSymbol = symbol;
 
             displayImage.sprite = symbol switch
             {

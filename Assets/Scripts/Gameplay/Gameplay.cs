@@ -24,15 +24,6 @@ namespace TicTacToe.Gameplay
         private int participantOnMoveIndex;
         private GameParticipant[] gameParticipants;
 
-        private void Start()
-        {
-            HumanParticipant test1 = new();
-            ComputerParticipant test2 = new();
-            
-            Init(new GameParticipant[]{test1, test2});
-            StartNewTicTacToeGame();
-        }
-
         public void Init(GameParticipant[] gameParticipants)
         {
             this.gameParticipants = gameParticipants;
@@ -45,7 +36,7 @@ namespace TicTacToe.Gameplay
             utilities.RestartRequested += OnRestartRequested;
         }
 
-        private void StartNewTicTacToeGame()
+        public void StartNewTicTacToeGame()
         {
             gameResultWidget.Hide();
             isGameEnded = false;

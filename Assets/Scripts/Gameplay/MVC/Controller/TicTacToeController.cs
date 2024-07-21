@@ -81,6 +81,11 @@ namespace TicTacToe.Gameplay.MVC.Controller
             }
         }
 
+        public bool IsCellOccupied(int gridPositionX, int gridPositionY)
+        {
+            return ticTacToeGame.Grid.IsCellOccupied(gridPositionX, gridPositionY);
+        }
+
         private void SetUpGridButtonsInteractions()
         {
             for (int i = 0; i < gridButtons.Length; i++)
@@ -96,7 +101,7 @@ namespace TicTacToe.Gameplay.MVC.Controller
 
         private void InteractWithCell(int gridPositionX, int gridPositionY)
         {
-            if (!ticTacToeGame.Grid.IsCellOccupied(gridPositionX, gridPositionY))
+            if (!IsCellOccupied(gridPositionX, gridPositionY))
             {
                 AddSymbolCommand addSymbolCommand = new(nextSymbol, gridPositionX, gridPositionY);
 

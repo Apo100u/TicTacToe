@@ -11,20 +11,22 @@ namespace TicTacToe.Gameplay
         [SerializeField] private TurnTimerWidget widget;
 
         private float timeLeft;
+        private bool isStopped;
 
         public void StartCountdown()
         {
+            isStopped = false;
             timeLeft = Gameplay.GameSettings.TurnTime;
         }
 
         public void Stop()
         {
-            gameObject.SetActive(false);
+            isStopped = true;
         }
 
         private void Update()
         {
-            if (timeLeft > 0.0f)
+            if (!isStopped && timeLeft > 0.0f)
             {
                 timeLeft -= Time.deltaTime;
                 widget.UpdateTimePercentage(timeLeft / Gameplay.GameSettings.TurnTime);

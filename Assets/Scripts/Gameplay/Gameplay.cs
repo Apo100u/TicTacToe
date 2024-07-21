@@ -4,6 +4,7 @@ using TicTacToe.Gameplay.GameParticipants;
 using TicTacToe.Gameplay.MVC.Controller;
 using TicTacToe.Gameplay.MVC.Model;
 using TicTacToe.ScriptableObjects;
+using TicTacToe.UI;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -15,6 +16,7 @@ namespace TicTacToe.Gameplay
         [SerializeField] private TicTacToeController ticTacToeController;
         [SerializeField] private TurnTimer turnTimer;
         [SerializeField] private GameplayUtilities utilities;
+        [SerializeField] private GameResultWidget gameResultWidget;
         
         public static GameSettings GameSettings { get; private set; }
 
@@ -45,6 +47,7 @@ namespace TicTacToe.Gameplay
 
         private void StartNewTicTacToeGame()
         {
+            gameResultWidget.Hide();
             isGameEnded = false;
             
             ticTacToeController.CreateNewGame();
@@ -109,8 +112,7 @@ namespace TicTacToe.Gameplay
 
         private void EndGame(Symbol? winner)
         {
-            Debug.Log(winner == null ? $"Game ended with a draw." : $"Game ended. Winner: symbol {winner}.");
-
+            gameResultWidget.ShowResult(winner);
             turnTimer.Stop();
             utilities.SetHintAndUndoAllowed(false);
             isGameEnded = true;

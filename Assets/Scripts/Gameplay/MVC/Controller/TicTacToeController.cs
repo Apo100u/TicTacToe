@@ -15,7 +15,7 @@ namespace TicTacToe.Gameplay.MVC.Controller
         [SerializeField] private SymbolWidget[] symbolWidgets;
         [SerializeField] private GridWidget[] gridButtons;
         [SerializeField] private int gridSize;
-
+        
         private TicTacToeGame ticTacToeGame;
         private Symbol nextSymbol;
 
@@ -42,6 +42,21 @@ namespace TicTacToe.Gameplay.MVC.Controller
         {
             ticTacToeGame.GameEnded += callback;
         }
+        
+        public void SetButtonsInteractable(bool interactable)
+        {
+            for (int i = 0; i < gridButtons.Length; i++)
+            {
+                Button button = gridButtons[i].GetComponent<Button>();
+                button.interactable = interactable;
+            }
+        }
+        
+        public void ShowHint()
+        {
+            ticTacToeGame.Grid.GetRandomEmptyCellGridPosition(out int gridPositionX, out int gridPositionY);
+            view.ShowHint(gridPositionX, gridPositionY, nextSymbol);
+        }
 
         private void SetUpGridButtonsInteractions()
         {
@@ -59,19 +74,11 @@ namespace TicTacToe.Gameplay.MVC.Controller
         {
             AddSymbolCommand addSymbolCommand = new(nextSymbol, gridPositionX, gridPositionY);
             
+            view.ClearHint();
             ticTacToeGame.ExecuteCommand(addSymbolCommand);
-            view.UpdateSymbolWidget(gridPositionX, gridPositionY, nextSymbol);
+            view.ShowSymbol(gridPositionX, gridPositionY, nextSymbol);
 
             MoveMade?.Invoke(this, EventArgs.Empty);
-        }
-
-        public void SetButtonsInteractable(bool interactable)
-        {
-            for (int i = 0; i < gridButtons.Length; i++)
-            {
-                Button button = gridButtons[i].GetComponent<Button>();
-                button.interactable = interactable;
-            }
         }
     }
 }

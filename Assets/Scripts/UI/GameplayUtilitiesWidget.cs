@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace TicTacToe.UI
@@ -12,6 +13,11 @@ namespace TicTacToe.UI
         public void SetHintButtonActive(bool active)
         {
             hintButton.gameObject.SetActive(active);
+        }
+
+        public void AddListenerToHintButton(UnityAction listener)
+        {
+            hintButton.onClick.AddListener(listener);
         }
         
         public void SetUndoButtonActive(bool active)

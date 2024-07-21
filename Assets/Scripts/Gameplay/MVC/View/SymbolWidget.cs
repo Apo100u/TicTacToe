@@ -32,5 +32,16 @@ namespace TicTacToe.Gameplay.MVC.View
 
             gameObject.SetActive(symbol != null);
         }
+
+        public void SetAsHint(bool isHint)
+        {
+            Color imageColor = displayImage.color;
+
+            imageColor.a = isHint
+                ? 0.5f
+                : 1f;
+
+            displayImage.color = imageColor;
+        }
     }
 }

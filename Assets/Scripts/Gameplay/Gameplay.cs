@@ -25,7 +25,7 @@ namespace TicTacToe.Gameplay
         private void Start()
         {
             HumanParticipant test1 = new();
-            HumanParticipant test2 = new();
+            ComputerParticipant test2 = new();
             
             Init(new GameParticipant[]{test1, test2});
             StartTicTacToeGame();
@@ -39,7 +39,7 @@ namespace TicTacToe.Gameplay
             ticTacToeController.Init();
             ticTacToeController.AddCallbackToGameEnded(OnWinOrDraw);
             
-            utilities.Init(IsPlayingAgainstComputer());
+            utilities.Init(ticTacToeController, IsPlayingAgainstComputer());
 
             turnTimer.TimeEnded += OnTurnTimeEnded;
             

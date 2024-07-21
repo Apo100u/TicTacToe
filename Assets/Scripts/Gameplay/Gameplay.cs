@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TicTacToe.Gameplay.GameParticipants;
 using TicTacToe.Gameplay.MVC.Controller;
 using TicTacToe.Gameplay.MVC.Model;
+using TicTacToe.ScriptableObjects;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -10,7 +11,10 @@ namespace TicTacToe.Gameplay
 {
     public class Gameplay : MonoBehaviour
     {
+        [SerializeField] private GameSettings gameSettings;
         [SerializeField] private TicTacToeController ticTacToeController;
+        
+        public static GameSettings GameSettings { get; private set; }
 
         private bool isGameEnded;
         private int participantOnMoveIndex;
@@ -28,6 +32,8 @@ namespace TicTacToe.Gameplay
         public void Init(GameParticipant[] gameParticipants)
         {
             this.gameParticipants = gameParticipants;
+            GameSettings = gameSettings;
+            
             ticTacToeController.Init();
             ticTacToeController.AddCallbackToGameEnded(OnGameEnded);
 

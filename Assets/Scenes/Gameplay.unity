@@ -740,7 +740,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09cf32aad9a409845ab6a6726179d5a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <GameSettings>k__BackingField: {fileID: 11400000, guid: 4e1d81a441f14eb4caaec91418b92925, type: 2}
 --- !u!4 &466476643
 Transform:
   m_ObjectHideFlags: 0
@@ -3036,6 +3035,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea08487bd21be3445b697d6b3a1d05c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameSettings: {fileID: 11400000, guid: 4e1d81a441f14eb4caaec91418b92925, type: 2}
   ticTacToeController: {fileID: 342498147}
 --- !u!1001 &2938459017206782399
 PrefabInstance:

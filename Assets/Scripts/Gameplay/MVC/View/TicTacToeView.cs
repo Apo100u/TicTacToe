@@ -1,13 +1,10 @@
 using TicTacToe.Gameplay.MVC.Model;
-using TicTacToe.ScriptableObjects;
 using UnityEngine;
 
 namespace TicTacToe.Gameplay.MVC.View
 {
     public class TicTacToeView : MonoBehaviour
     {
-        [field: SerializeField] public GameSettings GameSettings { get; private set; }
-        
         private SymbolWidget[,] symbolWidgets;
 
         public void Init(SymbolWidget[] symbolWidgets, int gridSize)

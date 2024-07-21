@@ -12,6 +12,7 @@ namespace TicTacToe.Gameplay
     {
         [SerializeField] private TicTacToeController ticTacToeController;
 
+        private bool isGameEnded;
         private int participantOnMoveIndex;
         private GameParticipant[] gameParticipants;
 
@@ -28,6 +29,7 @@ namespace TicTacToe.Gameplay
         {
             this.gameParticipants = gameParticipants;
             ticTacToeController.Init();
+            ticTacToeController.AddCallbackToGameEnded(OnGameEnded);
 
             AssignSymbolsToParticipants();
         }
@@ -40,24 +42,34 @@ namespace TicTacToe.Gameplay
             StartNextTurn();
         }
 
-        private void OnMoveMade(object sender, EventArgs args)
-        {
-            participantOnMoveIndex++;
-
-            if (participantOnMoveIndex >= gameParticipants.Length)
-            {
-                participantOnMoveIndex = 0;
-            }
-            
-            StartNextTurn();
-        }
-
         private void StartNextTurn()
         {
             GameParticipant participantOnMove = gameParticipants[participantOnMoveIndex];
             
             ticTacToeController.SetNextSymbol(participantOnMove.Symbol);
             participantOnMove.StartTurn(ticTacToeController);
+        }
+
+        private void OnMoveMade(object sender, EventArgs args)
+        {
+            gameParticipants[participantOnMoveIndex].EndTurn(ticTacToeController);
+            
+            if (!isGameEnded)
+            {
+                participantOnMoveIndex++;
+
+                if (participantOnMoveIndex >= gameParticipants.Length)
+                {
+                    participantOnMoveIndex = 0;
+                }
+
+                StartNextTurn();
+            }
+        }
+        
+        private void OnGameEnded(object sender, GameEndedEventArgs args)
+        {
+            isGameEnded = true;
         }
 
         private void AssignSymbolsToParticipants()

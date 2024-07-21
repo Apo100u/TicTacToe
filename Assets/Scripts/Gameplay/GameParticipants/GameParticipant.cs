@@ -16,5 +16,10 @@ namespace TicTacToe.Gameplay.GameParticipants
         {
             
         }
+
+        public virtual void EndTurn(TicTacToeController ticTacToeController)
+        {
+            
+        }
     }
 }

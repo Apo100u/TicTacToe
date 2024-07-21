@@ -9,7 +9,7 @@ namespace TicTacToe.Gameplay.MVC.Controller
 {
     public class TicTacToeController : MonoBehaviour
     {
-        public event EventHandler MoveMade; 
+        public event EventHandler MoveMade;
 
         [SerializeField] private TicTacToeView view;
         [SerializeField] private SymbolWidget[] symbolWidgets;
@@ -23,6 +23,7 @@ namespace TicTacToe.Gameplay.MVC.Controller
         {
             view.Init(symbolWidgets, gridSize);
             ticTacToeGame = new TicTacToeGame(new SymbolGrid(gridSize));
+            
             SetUpGridButtonsInteractions();
         }
 
@@ -34,7 +35,12 @@ namespace TicTacToe.Gameplay.MVC.Controller
         public void InteractWithRandomEmptyCell()
         {
             ticTacToeGame.Grid.GetRandomEmptyCellGridPosition(out int gridPositionX, out int gridPositionY);
-            OnGridCellInteracted(gridPositionX, gridPositionY);
+            InteractWithCell(gridPositionX, gridPositionY);
+        }
+
+        public void AddCallbackToGameEnded(EventHandler<GameEndedEventArgs> callback)
+        {
+            ticTacToeGame.GameEnded += callback;
         }
 
         private void SetUpGridButtonsInteractions()
@@ -45,11 +51,11 @@ namespace TicTacToe.Gameplay.MVC.Controller
                 int gridPositionY = gridButtons[i].GridPositionY;
                 Button button = gridButtons[i].GetComponent<Button>();
                 
-                button.onClick.AddListener(() => OnGridCellInteracted(gridPositionX, gridPositionY));
+                button.onClick.AddListener(() => InteractWithCell(gridPositionX, gridPositionY));
             }
         }
 
-        private void OnGridCellInteracted(int gridPositionX, int gridPositionY)
+        private void InteractWithCell(int gridPositionX, int gridPositionY)
         {
             AddSymbolCommand addSymbolCommand = new(nextSymbol, gridPositionX, gridPositionY);
             
@@ -57,6 +63,15 @@ namespace TicTacToe.Gameplay.MVC.Controller
             view.UpdateSymbolWidget(gridPositionX, gridPositionY, nextSymbol);
 
             MoveMade?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void SetButtonsInteractable(bool interactable)
+        {
+            for (int i = 0; i < gridButtons.Length; i++)
+            {
+                Button button = gridButtons[i].GetComponent<Button>();
+                button.interactable = interactable;
+            }
         }
     }
 }

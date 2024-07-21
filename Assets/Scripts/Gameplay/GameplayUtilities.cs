@@ -14,11 +14,10 @@ namespace TicTacToe.Gameplay
         private TicTacToeController ticTacToeController;
         private int participantsCount;
         
-        public void Init(TicTacToeController ticTacToeController, int participantsCount, bool isPlayingAgainstComputer)
+        public void Init(TicTacToeController ticTacToeController, int participantsCount)
         {
             this.ticTacToeController = ticTacToeController;
             this.participantsCount = participantsCount;
-            SetHintAndUndoAllowed(isPlayingAgainstComputer);
             SetUpButtons();
         }
 

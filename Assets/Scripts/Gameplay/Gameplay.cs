@@ -38,7 +38,7 @@ namespace TicTacToe.Gameplay
             this.gameParticipants = gameParticipants;
             GameSettings = gameSettings;
 
-            utilities.Init(ticTacToeController, gameParticipants.Length, IsPlayingAgainstComputer());
+            utilities.Init(ticTacToeController, gameParticipants.Length);
 
             ticTacToeController.MoveMade += OnMoveMade;
             turnTimer.TimeEnded += OnTurnTimeEnded;
@@ -52,6 +52,8 @@ namespace TicTacToe.Gameplay
             
             ticTacToeController.CreateNewGame();
             ticTacToeController.AddCallbackToGameEnded(OnWinOrDraw);
+            
+            utilities.SetHintAndUndoAllowed(IsPlayingAgainstComputer());
 
             AssignSymbolsToParticipants();
             participantOnMoveIndex = Random.Range(0, gameParticipants.Length);

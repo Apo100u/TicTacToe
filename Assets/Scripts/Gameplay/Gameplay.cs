@@ -28,13 +28,14 @@ namespace TicTacToe.Gameplay
             ComputerParticipant test2 = new();
             
             Init(new GameParticipant[]{test1, test2});
-            StartTicTacToeGame();
+            StartNewTicTacToeGame();
         }
 
         public void Init(GameParticipant[] gameParticipants)
         {
             this.gameParticipants = gameParticipants;
             GameSettings = gameSettings;
+            isGameEnded = false;
             
             ticTacToeController.Init();
             ticTacToeController.AddCallbackToGameEnded(OnWinOrDraw);
@@ -46,7 +47,7 @@ namespace TicTacToe.Gameplay
             AssignSymbolsToParticipants();
         }
 
-        public void StartTicTacToeGame()
+        public void StartNewTicTacToeGame()
         {
             ticTacToeController.MoveMade += OnMoveMade;
             participantOnMoveIndex = 0;

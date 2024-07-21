@@ -13,7 +13,7 @@ namespace TicTacToe.Gameplay.MVC.View
         {
             this.symbolWidgets = new SymbolWidget[gridSize, gridSize];
             
-            AssignSymbolWidgets(symbolWidgets);
+            SetUpSymbolWidgets(symbolWidgets);
         }
 
         public void ShowSymbol(int gridPositionX, int gridPositionY, Symbol? symbol, bool showAsHint = false)
@@ -43,7 +43,7 @@ namespace TicTacToe.Gameplay.MVC.View
             }
         }
 
-        private void AssignSymbolWidgets(SymbolWidget[] symbolWidgets)
+        private void SetUpSymbolWidgets(SymbolWidget[] symbolWidgets)
         {
             for (int i = 0; i < symbolWidgets.Length; i++)
             {

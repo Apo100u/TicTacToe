@@ -29,6 +29,7 @@ namespace TicTacToe.Gameplay
         {
             widget.AddListenerToHintButton(ShowHint);
             widget.AddListenerToUndoButton(UndoLastTurn);
+            widget.AddListenerToRestartButton(Restart);
         }
 
         private void ShowHint()
@@ -39,6 +40,11 @@ namespace TicTacToe.Gameplay
         private void UndoLastTurn()
         {
             ticTacToeController.UndoLastTurn(participantsCount);
+        }
+
+        private void Restart()
+        {
+            
         }
     }
 }

@@ -13,6 +13,7 @@ namespace TicTacToe.Gameplay
     {
         [SerializeField] private GameSettings gameSettings;
         [SerializeField] private TicTacToeController ticTacToeController;
+        [SerializeField] private TurnTimer turnTimer;
         
         public static GameSettings GameSettings { get; private set; }
 
@@ -35,8 +36,10 @@ namespace TicTacToe.Gameplay
             GameSettings = gameSettings;
             
             ticTacToeController.Init();
-            ticTacToeController.AddCallbackToGameEnded(OnGameEnded);
+            ticTacToeController.AddCallbackToGameEnded(OnWinOrDraw);
 
+            turnTimer.TimeEnded += OnTurnTimeEnded;
+            
             AssignSymbolsToParticipants();
         }
 
@@ -53,6 +56,7 @@ namespace TicTacToe.Gameplay
             GameParticipant participantOnMove = gameParticipants[participantOnMoveIndex];
             
             ticTacToeController.SetNextSymbol(participantOnMove.Symbol);
+            turnTimer.StartCountdown();
             participantOnMove.StartTurn(ticTacToeController);
         }
 
@@ -73,9 +77,27 @@ namespace TicTacToe.Gameplay
             }
         }
         
-        private void OnGameEnded(object sender, GameEndedEventArgs args)
+        private void OnTurnTimeEnded(object sender, EventArgs args)
         {
+            Symbol winner = gameParticipants[participantOnMoveIndex].Symbol == Symbol.O
+                ? Symbol.X
+                : Symbol.O;
+
+            EndGame(winner);
+        }
+        
+        private void OnWinOrDraw(object sender, GameEndedEventArgs args)
+        {
+            EndGame(args.Winner);
+        }
+
+        private void EndGame(Symbol? winner)
+        {
+            Debug.Log(winner == null ? $"Game ended with a draw." : $"Game ended. Winner: symbol {winner}.");
+
+            turnTimer.Stop();
             isGameEnded = true;
+            gameParticipants[participantOnMoveIndex].EndTurn(ticTacToeController);
         }
 
         private void AssignSymbolsToParticipants()

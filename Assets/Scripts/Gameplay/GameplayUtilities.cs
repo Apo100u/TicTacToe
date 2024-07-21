@@ -27,11 +27,17 @@ namespace TicTacToe.Gameplay
         private void SetUpButtons()
         {
             widget.AddListenerToHintButton(ShowHint);
+            widget.AddListenerToUndoButton(UndoLastMove);
         }
 
         private void ShowHint()
         {
             ticTacToeController.ShowHint();
+        }
+
+        private void UndoLastMove()
+        {
+            ticTacToeController.UndoLastMove();
         }
     }
 }

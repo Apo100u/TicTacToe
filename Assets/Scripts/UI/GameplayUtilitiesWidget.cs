@@ -24,10 +24,20 @@ namespace TicTacToe.UI
         {
             undoButton.gameObject.SetActive(active);
         }
+
+        public void AddListenerToUndoButton(UnityAction listener)
+        {
+            undoButton.onClick.AddListener(listener);
+        }
         
         public void SetRestartButtonActive(bool active)
         {
             restartButton.gameObject.SetActive(active);
+        }
+
+        public void AddListenerToRestartButton(UnityAction listener)
+        {
+            restartButton.onClick.AddListener(listener);
         }
     }
 }

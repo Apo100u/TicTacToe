@@ -8,15 +8,12 @@ namespace TicTacToe.Gameplay.MVC.View
 {
     public class SymbolWidget : GridWidget
     {
+        private const float HintAlpha = 0.5f;
+        private const float DefaultAlpha = 1f;
+        
         [SerializeField] private Image displayImage;
 
-        private TicTacToeView view;
         private Symbol? currentlyDisplayedSymbol;
-
-        public void Init(TicTacToeView view)
-        {
-            this.view = view;
-        }
 
         public void ChangeSymbol(Symbol? symbol)
         {
@@ -38,8 +35,8 @@ namespace TicTacToe.Gameplay.MVC.View
             Color imageColor = displayImage.color;
 
             imageColor.a = isHint
-                ? 0.5f
-                : 1f;
+                ? HintAlpha
+                : DefaultAlpha;
 
             displayImage.color = imageColor;
         }

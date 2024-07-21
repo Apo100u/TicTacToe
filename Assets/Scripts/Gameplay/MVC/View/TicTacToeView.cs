@@ -47,7 +47,6 @@ namespace TicTacToe.Gameplay.MVC.View
         {
             for (int i = 0; i < symbolWidgets.Length; i++)
             {
-                symbolWidgets[i].Init(this);
                 symbolWidgets[i].ChangeSymbol(null);
                 
                 int gridPositionX = symbolWidgets[i].GridPositionX;

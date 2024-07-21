@@ -58,6 +58,11 @@ namespace TicTacToe.Gameplay.MVC.Controller
             view.ShowHint(gridPositionX, gridPositionY, nextSymbol);
         }
 
+        public void UndoLastMove()
+        {
+            throw new NotImplementedException();
+        }
+
         private void SetUpGridButtonsInteractions()
         {
             for (int i = 0; i < gridButtons.Length; i++)
@@ -72,13 +77,16 @@ namespace TicTacToe.Gameplay.MVC.Controller
 
         private void InteractWithCell(int gridPositionX, int gridPositionY)
         {
-            AddSymbolCommand addSymbolCommand = new(nextSymbol, gridPositionX, gridPositionY);
-            
-            view.ClearHint();
-            ticTacToeGame.ExecuteCommand(addSymbolCommand);
-            view.ShowSymbol(gridPositionX, gridPositionY, nextSymbol);
+            if (!ticTacToeGame.Grid.IsCellOccupied(gridPositionX, gridPositionY))
+            {
+                AddSymbolCommand addSymbolCommand = new(nextSymbol, gridPositionX, gridPositionY);
 
-            MoveMade?.Invoke(this, EventArgs.Empty);
+                view.ClearHint();
+                ticTacToeGame.ExecuteCommand(addSymbolCommand);
+                view.ShowSymbol(gridPositionX, gridPositionY, nextSymbol);
+
+                MoveMade?.Invoke(this, EventArgs.Empty);
+            }
         }
     }
 }

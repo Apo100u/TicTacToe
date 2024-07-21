@@ -26,6 +26,15 @@ namespace TicTacToe.Gameplay.MVC.Model
             command.Execute(this);
         }
 
+        public void UndoLastCommand()
+        {
+            if (commandsInOrder.Count > 0)
+            {
+                commandsInOrder.Last.Value.Undo(this);
+                commandsInOrder.RemoveLast();
+            }
+        }
+
         private void OnSymbolAdded(object sender, SymbolAddedEventArgs args)
         {
             CheckForGameEnd(args.Symbol, args.GridPositionX, args.GridPositionY);

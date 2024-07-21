@@ -35,6 +35,11 @@ namespace TicTacToe.Gameplay.MVC.Model
             return grid[gridPositionX, gridPositionY];
         }
 
+        public bool IsCellOccupied(int gridPositionX, int gridPositionY)
+        {
+            return GetSymbol(gridPositionX, gridPositionY) != null;
+        }
+
         public void AddSymbol(Symbol symbol, int gridPositionX, int gridPositionY)
         {
             if (ValidateCoordinates(gridPositionX, gridPositionY))

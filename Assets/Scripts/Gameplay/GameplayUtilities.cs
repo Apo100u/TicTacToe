@@ -9,25 +9,26 @@ namespace TicTacToe.Gameplay
         [SerializeField] private GameplayUtilitiesWidget widget;
 
         private TicTacToeController ticTacToeController;
+        private int participantsCount;
         
-        public void Init(TicTacToeController ticTacToeController, bool isPlayingAgainstComputer)
+        public void Init(TicTacToeController ticTacToeController, int participantsCount, bool isPlayingAgainstComputer)
         {
             this.ticTacToeController = ticTacToeController;
-            ShowAllowedUtilities(isPlayingAgainstComputer);
+            this.participantsCount = participantsCount;
+            SetHintAndUndoAllowed(isPlayingAgainstComputer);
             SetUpButtons();
         }
 
-        private void ShowAllowedUtilities(bool isPlayingAgainstComputer)
+        public void SetHintAndUndoAllowed(bool allowed)
         {
-            widget.SetHintButtonActive(isPlayingAgainstComputer);
-            widget.SetUndoButtonActive(isPlayingAgainstComputer);
-            widget.SetRestartButtonActive(true);
+            widget.SetHintButtonActive(allowed);
+            widget.SetUndoButtonActive(allowed);
         }
 
         private void SetUpButtons()
         {
             widget.AddListenerToHintButton(ShowHint);
-            widget.AddListenerToUndoButton(UndoLastMove);
+            widget.AddListenerToUndoButton(UndoLastTurn);
         }
 
         private void ShowHint()
@@ -35,9 +36,9 @@ namespace TicTacToe.Gameplay
             ticTacToeController.ShowHint();
         }
 
-        private void UndoLastMove()
+        private void UndoLastTurn()
         {
-            ticTacToeController.UndoLastMove();
+            ticTacToeController.UndoLastTurn(participantsCount);
         }
     }
 }

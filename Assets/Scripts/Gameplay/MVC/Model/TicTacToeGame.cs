@@ -11,6 +11,8 @@ namespace TicTacToe.Gameplay.MVC.Model
 
         public readonly SymbolGrid Grid;
 
+        public int MovesCount => commandsInOrder.Count;
+
         private LinkedList<Command> commandsInOrder = new();
 
         public TicTacToeGame(SymbolGrid grid)
@@ -26,10 +28,13 @@ namespace TicTacToe.Gameplay.MVC.Model
             command.Execute(this);
         }
 
-        public void UndoLastCommand()
+        public void UndoLastCommand(out Command undoneCommand)
         {
+            undoneCommand = null;
+            
             if (commandsInOrder.Count > 0)
             {
+                undoneCommand = commandsInOrder.Last.Value;
                 commandsInOrder.Last.Value.Undo(this);
                 commandsInOrder.RemoveLast();
             }

@@ -39,7 +39,7 @@ namespace TicTacToe.Gameplay
             ticTacToeController.Init();
             ticTacToeController.AddCallbackToGameEnded(OnWinOrDraw);
             
-            utilities.Init(ticTacToeController, IsPlayingAgainstComputer());
+            utilities.Init(ticTacToeController, gameParticipants.Length, IsPlayingAgainstComputer());
 
             turnTimer.TimeEnded += OnTurnTimeEnded;
             
@@ -99,6 +99,7 @@ namespace TicTacToe.Gameplay
             Debug.Log(winner == null ? $"Game ended with a draw." : $"Game ended. Winner: symbol {winner}.");
 
             turnTimer.Stop();
+            utilities.SetHintAndUndoAllowed(false);
             isGameEnded = true;
             gameParticipants[participantOnMoveIndex].EndTurn(ticTacToeController);
         }

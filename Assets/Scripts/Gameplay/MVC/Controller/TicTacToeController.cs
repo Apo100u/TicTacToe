@@ -58,9 +58,22 @@ namespace TicTacToe.Gameplay.MVC.Controller
             view.ShowHint(gridPositionX, gridPositionY, nextSymbol);
         }
 
-        public void UndoLastMove()
+        public void UndoLastTurn(int participantsCount)
         {
-            throw new NotImplementedException();
+            bool atLeastOneFullTurnPassed = ticTacToeGame.MovesCount >= participantsCount;
+
+            if (atLeastOneFullTurnPassed)
+            {
+                for (int i = 0; i < participantsCount; i++)
+                {
+                    ticTacToeGame.UndoLastCommand(out Command undoneCommand);
+
+                    if (undoneCommand is AddSymbolCommand addSymbolCommand)
+                    {
+                        view.HideSymbol(addSymbolCommand.GridPositionX, addSymbolCommand.GridPositionY);
+                    }
+                }
+            }
         }
 
         private void SetUpGridButtonsInteractions()

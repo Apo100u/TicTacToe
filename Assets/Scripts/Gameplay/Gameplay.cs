@@ -14,6 +14,7 @@ namespace TicTacToe.Gameplay
         [SerializeField] private GameSettings gameSettings;
         [SerializeField] private TicTacToeController ticTacToeController;
         [SerializeField] private TurnTimer turnTimer;
+        [SerializeField] private GameplayUtilities utilities;
         
         public static GameSettings GameSettings { get; private set; }
 
@@ -24,7 +25,7 @@ namespace TicTacToe.Gameplay
         private void Start()
         {
             HumanParticipant test1 = new();
-            ComputerParticipant test2 = new();
+            HumanParticipant test2 = new();
             
             Init(new GameParticipant[]{test1, test2});
             StartTicTacToeGame();
@@ -37,6 +38,8 @@ namespace TicTacToe.Gameplay
             
             ticTacToeController.Init();
             ticTacToeController.AddCallbackToGameEnded(OnWinOrDraw);
+            
+            utilities.Init(IsPlayingAgainstComputer());
 
             turnTimer.TimeEnded += OnTurnTimeEnded;
             
@@ -117,6 +120,22 @@ namespace TicTacToe.Gameplay
                     availableSymbols = new List<Symbol> { Symbol.X, Symbol.O };
                 }
             }
+        }
+
+        private bool IsPlayingAgainstComputer()
+        {
+            bool isPlayingAgainstComputer = false;
+
+            for (int i = 0; i < gameParticipants.Length; i++)
+            {
+                if (gameParticipants[i] is ComputerParticipant)
+                {
+                    isPlayingAgainstComputer = true;
+                    break;
+                }
+            }
+
+            return isPlayingAgainstComputer;
         }
     }
 }

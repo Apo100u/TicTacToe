@@ -35,24 +35,31 @@ namespace TicTacToe.Gameplay
         {
             this.gameParticipants = gameParticipants;
             GameSettings = gameSettings;
-            isGameEnded = false;
-            
-            ticTacToeController.Init();
-            ticTacToeController.AddCallbackToGameEnded(OnWinOrDraw);
-            
+
             utilities.Init(ticTacToeController, gameParticipants.Length, IsPlayingAgainstComputer());
 
+            ticTacToeController.MoveMade += OnMoveMade;
             turnTimer.TimeEnded += OnTurnTimeEnded;
-            
-            AssignSymbolsToParticipants();
+            utilities.RestartRequested += OnRestartRequested;
         }
 
-        public void StartNewTicTacToeGame()
+        private void StartNewTicTacToeGame()
         {
-            ticTacToeController.MoveMade += OnMoveMade;
-            participantOnMoveIndex = 0;
+            isGameEnded = false;
+            
+            ticTacToeController.CreateNewGame();
+            ticTacToeController.AddCallbackToGameEnded(OnWinOrDraw);
+
+            AssignSymbolsToParticipants();
+            participantOnMoveIndex = Random.Range(0, gameParticipants.Length);
             
             StartNextTurn();
+        }
+
+        public void RestartTicTacToeGame()
+        {
+            ticTacToeController.RemoveCallbackFromGameEnded(OnWinOrDraw);
+            StartNewTicTacToeGame();
         }
 
         private void StartNextTurn()
@@ -88,6 +95,11 @@ namespace TicTacToe.Gameplay
                 : Symbol.O;
 
             EndGame(winner);
+        }
+        
+        private void OnRestartRequested(object sender, EventArgs args)
+        {
+            RestartTicTacToeGame();
         }
         
         private void OnWinOrDraw(object sender, GameEndedEventArgs args)

@@ -19,7 +19,7 @@ namespace TicTacToe.Gameplay.MVC.Controller
         private TicTacToeGame ticTacToeGame;
         private Symbol nextSymbol;
 
-        public void Init()
+        public void CreateNewGame()
         {
             view.Init(symbolWidgets, gridSize);
             ticTacToeGame = new TicTacToeGame(new SymbolGrid(gridSize));
@@ -41,6 +41,11 @@ namespace TicTacToe.Gameplay.MVC.Controller
         public void AddCallbackToGameEnded(EventHandler<GameEndedEventArgs> callback)
         {
             ticTacToeGame.GameEnded += callback;
+        }
+        
+        public void RemoveCallbackFromGameEnded(EventHandler<GameEndedEventArgs> callback)
+        {
+            ticTacToeGame.GameEnded -= callback;
         }
         
         public void SetButtonsInteractable(bool interactable)
@@ -83,7 +88,8 @@ namespace TicTacToe.Gameplay.MVC.Controller
                 int gridPositionX = gridButtons[i].GridPositionX;
                 int gridPositionY = gridButtons[i].GridPositionY;
                 Button button = gridButtons[i].GetComponent<Button>();
-                
+
+                button.onClick.RemoveAllListeners();
                 button.onClick.AddListener(() => InteractWithCell(gridPositionX, gridPositionY));
             }
         }

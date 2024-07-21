@@ -1,3 +1,4 @@
+using System;
 using TicTacToe.Gameplay.MVC.Controller;
 using TicTacToe.UI;
 using UnityEngine;
@@ -6,6 +7,8 @@ namespace TicTacToe.Gameplay
 {
     public class GameplayUtilities : MonoBehaviour
     {
+        public event EventHandler RestartRequested;
+
         [SerializeField] private GameplayUtilitiesWidget widget;
 
         private TicTacToeController ticTacToeController;
@@ -44,7 +47,7 @@ namespace TicTacToe.Gameplay
 
         private void Restart()
         {
-            
+            RestartRequested?.Invoke(this, EventArgs.Empty);
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using TicTacToe.UI;
 using UnityEngine;
 
 namespace TicTacToe.Gameplay
@@ -6,6 +7,8 @@ namespace TicTacToe.Gameplay
     public class TurnTimer : MonoBehaviour
     {
         public event EventHandler TimeEnded;
+
+        [SerializeField] private TurnTimerWidget widget;
 
         private float timeLeft;
 
@@ -24,6 +27,7 @@ namespace TicTacToe.Gameplay
             if (timeLeft > 0.0f)
             {
                 timeLeft -= Time.deltaTime;
+                widget.UpdateTimePercentage(timeLeft / Gameplay.GameSettings.TurnTime);
 
                 if (timeLeft <= 0.0f)
                 {

@@ -26,12 +26,15 @@ namespace TicTacToe.Gameplay.MVC.View
         {
             symbolWidgets[gridPositionX, gridPositionY].ChangeSymbol(null);
         }
-        
+
         public void ShowHint(int gridPositionX, int gridPositionY, Symbol symbol)
         {
-            ShowSymbol(gridPositionX, gridPositionY, symbol, true);
-            isShowingHint = true;
-            currentHintGridPosition = (gridPositionX, gridPositionY);
+            if (!isShowingHint)
+            {
+                ShowSymbol(gridPositionX, gridPositionY, symbol, true);
+                isShowingHint = true;
+                currentHintGridPosition = (gridPositionX, gridPositionY);
+            }
         }
 
         public void ClearHint()

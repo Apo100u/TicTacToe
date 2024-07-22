@@ -14,7 +14,7 @@ namespace TicTacToe.UnitTests
 
         protected void LogFailDetails(string message)
         {
-            Debug.Log($"Unit test {Name} fail details: {message}");
+            Debug.Log($"<color=red>Unit test [{Name}] fail details:</color> {message}");
         }
     }
 }

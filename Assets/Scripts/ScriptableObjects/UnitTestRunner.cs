@@ -9,6 +9,8 @@ namespace TicTacToe.ScriptableObjects
     {
         [SerializeField] private UnitTest[] unitTests;
 
+        private int successfulTests;
+
         private void Awake()
         {
             DontDestroyOnLoad(gameObject);
@@ -22,18 +24,24 @@ namespace TicTacToe.ScriptableObjects
             }
             else
             {
-                Debug.Log("Starting unit tests...");
-
                 StartCoroutine(RunUnitTestsRoutine());
             }
         }
 
         private IEnumerator RunUnitTestsRoutine()
         {
+            Debug.Log("Starting unit tests.");
+
+            successfulTests = 0;
+                
             for (int i = 0; i < unitTests.Length; i++)
             {
                 yield return RunUnitTest(unitTests[i]);
             }
+            
+            Debug.Log("Unit tests ended.");
+            Debug.Log($"Unit tests summary: [{successfulTests}/{unitTests.Length}] passed tests.");
+            
         }
 
         private IEnumerator RunUnitTest(UnitTest unitTest)
@@ -49,9 +57,14 @@ namespace TicTacToe.ScriptableObjects
             unitTest.Act();
             bool testSuccessful = unitTest.Assert();
 
+            if (testSuccessful)
+            {
+                successfulTests++;
+            }
+
             Debug.Log(testSuccessful
-                ? $"Unit Test [{unitTest.Name}]: <color=green>Success</color>. ({unitTest.Description})"
-                : $"Unit Test {unitTest.Name}: <color=red>[Fail]</color>. See logs for details. ({unitTest.Description})");
+                ? $"<color=green>Unit Test [{unitTest.Name}]: Success</color>. ({unitTest.Description})"
+                : $"<color=red>Unit Test [{unitTest.Name}]: Fail</color>. ({unitTest.Description})");
         }
     }
 }

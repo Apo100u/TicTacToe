@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: HintUnitTest
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Hint
-  <Description>k__BackingField: Checks if hint is on an available cell and if it's
-    the same symbol as players.
+  <Description>k__BackingField: Uses hint and checks if it's on available cell and
+    if it's the same symbol as players.
   <StartingSceneName>k__BackingField: Gameplay

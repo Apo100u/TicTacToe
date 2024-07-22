@@ -8,7 +8,7 @@ namespace TicTacToe.UnitTests
     [CreateAssetMenu(fileName = "New Win Unit Test", menuName = "Scriptable Objects/Unit Test/Win")]
     public class WinUnitTest : UnitTest
     {
-        private Gameplay.Gameplay gameplay;
+        protected Gameplay.Gameplay gameplay;
         private TicTacToeController controller;
         private GameParticipant winningPlayer;
         private GameParticipant losingPlayer;

@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c09eb328021feac4dabdb6c32f9cbc68, type: 3}
-  m_Name: WinUnitTest
+  m_Script: {fileID: 11500000, guid: b4e3fca7198627146af662bfdbcc703a, type: 3}
+  m_Name: LoseUnitTest
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Win
+  <Name>k__BackingField: Lose
   <Description>k__BackingField: Creates winning combination for X and checks if winner
-    is X.
+    is O.
   <StartingSceneName>k__BackingField: Gameplay

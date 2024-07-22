@@ -11,18 +11,19 @@ namespace TicTacToe.Gameplay.MVC.Controller
     {
         public event EventHandler MoveMade;
 
+        [field: SerializeField] public int GridSize { get; private set; }
+        
         [SerializeField] private TicTacToeView view;
         [SerializeField] private SymbolWidget[] symbolWidgets;
         [SerializeField] private GridWidget[] gridButtons;
-        [SerializeField] private int gridSize;
         
         private TicTacToeGame ticTacToeGame;
         private Symbol nextSymbol;
 
         public void CreateNewGame()
         {
-            view.Init(symbolWidgets, gridSize);
-            ticTacToeGame = new TicTacToeGame(new SymbolGrid(gridSize));
+            view.Init(symbolWidgets, GridSize);
+            ticTacToeGame = new TicTacToeGame(new SymbolGrid(GridSize));
             
             SetUpGridButtonsInteractions();
         }
@@ -84,6 +85,11 @@ namespace TicTacToe.Gameplay.MVC.Controller
         public bool IsCellOccupied(int gridPositionX, int gridPositionY)
         {
             return ticTacToeGame.Grid.IsCellOccupied(gridPositionX, gridPositionY);
+        }
+
+        public Symbol? GetSymbol(int gridPositionX, int gridPositionY)
+        {
+            return ticTacToeGame.Grid.GetSymbol(gridPositionX, gridPositionY);
         }
 
         private void SetUpGridButtonsInteractions()

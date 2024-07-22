@@ -571,6 +571,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 229f4e67cafc7fe4399259a85318d47d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <GridSize>k__BackingField: 3
   view: {fileID: 466476642}
   symbolWidgets:
   - {fileID: 4366049616956884557}
@@ -592,7 +593,6 @@ MonoBehaviour:
   - {fileID: 375649907}
   - {fileID: 1383731226}
   - {fileID: 695414897}
-  gridSize: 3
 --- !u!4 &342498148
 Transform:
   m_ObjectHideFlags: 0

@@ -21,8 +21,8 @@ namespace TicTacToe.Gameplay
         public static GameSettings GameSettings { get; private set; }
         
         public Symbol? Winner { get; private set; }
+        public bool IsGameEnded { get; private set; }
 
-        private bool isGameEnded;
         private int participantOnMoveIndex;
         private GameParticipant[] gameParticipants;
 
@@ -41,7 +41,7 @@ namespace TicTacToe.Gameplay
         public void StartNewTicTacToeGame()
         {
             gameResultWidget.Hide();
-            isGameEnded = false;
+            IsGameEnded = false;
             
             ticTacToeController.CreateNewGame();
             ticTacToeController.AddCallbackToGameWonOrTied(OnWinOrDraw);
@@ -67,7 +67,7 @@ namespace TicTacToe.Gameplay
         {
             gameParticipants[participantOnMoveIndex].EndTurn(ticTacToeController);
             
-            if (!isGameEnded)
+            if (!IsGameEnded)
             {
                 participantOnMoveIndex++;
 
@@ -100,7 +100,7 @@ namespace TicTacToe.Gameplay
             gameResultWidget.ShowResult(winner);
             turnTimer.Stop();
             utilities.SetHintAndUndoAllowed(false);
-            isGameEnded = true;
+            IsGameEnded = true;
             gameParticipants[participantOnMoveIndex].EndTurn(ticTacToeController);
         }
         

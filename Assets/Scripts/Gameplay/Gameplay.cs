@@ -19,6 +19,8 @@ namespace TicTacToe.Gameplay
         [SerializeField] private GameResultWidget gameResultWidget;
         
         public static GameSettings GameSettings { get; private set; }
+        
+        public Symbol? Winner { get; private set; }
 
         private bool isGameEnded;
         private int participantOnMoveIndex;
@@ -42,27 +44,21 @@ namespace TicTacToe.Gameplay
             isGameEnded = false;
             
             ticTacToeController.CreateNewGame();
-            ticTacToeController.AddCallbackToGameEnded(OnWinOrDraw);
+            ticTacToeController.AddCallbackToGameWonOrTied(OnWinOrDraw);
             
             utilities.SetHintAndUndoAllowed(IsPlayingAgainstComputer());
 
             AssignSymbolsToParticipants();
-            participantOnMoveIndex = Random.Range(0, gameParticipants.Length);
+            participantOnMoveIndex = GetIndexOfPlayerWithSymbol(Symbol.X);
             
             StartNextTurn();
-        }
-
-        public void RestartTicTacToeGame()
-        {
-            ticTacToeController.RemoveCallbackFromGameEnded(OnWinOrDraw);
-            StartNewTicTacToeGame();
         }
 
         private void StartNextTurn()
         {
             GameParticipant participantOnMove = gameParticipants[participantOnMoveIndex];
             
-            ticTacToeController.SetNextSymbol(participantOnMove.Symbol);
+            ticTacToeController.SetSymbolOnMove(participantOnMove.Symbol);
             turnTimer.StartCountdown();
             participantOnMove.StartTurn(ticTacToeController);
         }
@@ -83,7 +79,7 @@ namespace TicTacToe.Gameplay
                 StartNextTurn();
             }
         }
-        
+
         private void OnTurnTimeEnded(object sender, EventArgs args)
         {
             Symbol winner = gameParticipants[participantOnMoveIndex].Symbol == Symbol.O
@@ -93,11 +89,6 @@ namespace TicTacToe.Gameplay
             EndGame(winner);
         }
         
-        private void OnRestartRequested(object sender, EventArgs args)
-        {
-            RestartTicTacToeGame();
-        }
-        
         private void OnWinOrDraw(object sender, GameEndedEventArgs args)
         {
             EndGame(args.Winner);
@@ -105,11 +96,23 @@ namespace TicTacToe.Gameplay
 
         private void EndGame(Symbol? winner)
         {
+            Winner = winner;
             gameResultWidget.ShowResult(winner);
             turnTimer.Stop();
             utilities.SetHintAndUndoAllowed(false);
             isGameEnded = true;
             gameParticipants[participantOnMoveIndex].EndTurn(ticTacToeController);
+        }
+        
+        private void OnRestartRequested(object sender, EventArgs args)
+        {
+            RestartTicTacToeGame();
+        }
+
+        private void RestartTicTacToeGame()
+        {
+            ticTacToeController.RemoveCallbackFromGameWonOrTied(OnWinOrDraw);
+            StartNewTicTacToeGame();
         }
 
         private void AssignSymbolsToParticipants()
@@ -129,6 +132,21 @@ namespace TicTacToe.Gameplay
                     availableSymbols = new List<Symbol> { Symbol.X, Symbol.O };
                 }
             }
+        }
+
+        private int GetIndexOfPlayerWithSymbol(Symbol symbol)
+        {
+            int index = int.MinValue;
+            
+            for (int i = 0; i < gameParticipants.Length; i++)
+            {
+                if (gameParticipants[i].Symbol == symbol)
+                {
+                    index = i;
+                }
+            }
+
+            return index;
         }
 
         private bool IsPlayingAgainstComputer()

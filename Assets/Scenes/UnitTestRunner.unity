@@ -154,6 +154,7 @@ MonoBehaviour:
   unitTests:
   - {fileID: 11400000, guid: 97a07147235dc8841a8c4976ca179dd3, type: 2}
   - {fileID: 11400000, guid: c6297e78611b8e44cbed794627fc8dc8, type: 2}
+  - {fileID: 11400000, guid: 19ca1f14094930440b046ad924b2745d, type: 2}
 --- !u!4 &1860832500
 Transform:
   m_ObjectHideFlags: 0

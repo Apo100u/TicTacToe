@@ -7,7 +7,7 @@ namespace TicTacToe.Gameplay.MVC.Model
 {
     public class TicTacToeGame
     {
-        public event EventHandler<GameEndedEventArgs> GameEnded;
+        public event EventHandler<GameEndedEventArgs> GameWonOrTied;
 
         public readonly SymbolGrid Grid;
 
@@ -56,7 +56,7 @@ namespace TicTacToe.Gameplay.MVC.Model
             if (isGameEnded)
             {
                 Symbol? winningSymbol = isSymbolWinning ? symbol : null;
-                GameEnded?.Invoke(this, new GameEndedEventArgs(winningSymbol));
+                GameWonOrTied?.Invoke(this, new GameEndedEventArgs(winningSymbol));
             }
         }
     }

@@ -9,7 +9,7 @@ namespace TicTacToe.Gameplay.GameParticipants
             base.StartTurn(ticTacToeController);
             
             // TODO: Wait a bit to make it more clear?
-            ticTacToeController.InteractWithRandomEmptyCell();
+            ticTacToeController.MakeRandomMoveWithCurrentSymbol();
         }
     }
 }

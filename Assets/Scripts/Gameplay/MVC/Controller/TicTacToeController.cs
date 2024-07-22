@@ -18,7 +18,7 @@ namespace TicTacToe.Gameplay.MVC.Controller
         [SerializeField] private GridWidget[] gridButtons;
         
         private TicTacToeGame ticTacToeGame;
-        private Symbol nextSymbol;
+        private Symbol symbolOnMove;
 
         public void CreateNewGame()
         {
@@ -28,25 +28,39 @@ namespace TicTacToe.Gameplay.MVC.Controller
             SetUpGridButtonsInteractions();
         }
 
-        public void SetNextSymbol(Symbol symbol)
+        public void SetSymbolOnMove(Symbol symbol)
         {
-            nextSymbol = symbol;
-        }
-
-        public void InteractWithRandomEmptyCell()
-        {
-            ticTacToeGame.Grid.GetRandomEmptyCellGridPosition(out int gridPositionX, out int gridPositionY);
-            InteractWithCell(gridPositionX, gridPositionY);
-        }
-
-        public void AddCallbackToGameEnded(EventHandler<GameEndedEventArgs> callback)
-        {
-            ticTacToeGame.GameEnded += callback;
+            symbolOnMove = symbol;
         }
         
-        public void RemoveCallbackFromGameEnded(EventHandler<GameEndedEventArgs> callback)
+        public void MakeMoveWithCurrentSymbol(int gridPositionX, int gridPositionY)
         {
-            ticTacToeGame.GameEnded -= callback;
+            if (!IsCellOccupied(gridPositionX, gridPositionY))
+            {
+                AddSymbolCommand addSymbolCommand = new(symbolOnMove, gridPositionX, gridPositionY);
+
+                view.ClearHint();
+                ticTacToeGame.ExecuteCommand(addSymbolCommand);
+                view.ShowSymbol(gridPositionX, gridPositionY, symbolOnMove);
+
+                MoveMade?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public void MakeRandomMoveWithCurrentSymbol()
+        {
+            ticTacToeGame.Grid.GetRandomEmptyCellGridPosition(out int gridPositionX, out int gridPositionY);
+            MakeMoveWithCurrentSymbol(gridPositionX, gridPositionY);
+        }
+
+        public void AddCallbackToGameWonOrTied(EventHandler<GameEndedEventArgs> callback)
+        {
+            ticTacToeGame.GameWonOrTied += callback;
+        }
+        
+        public void RemoveCallbackFromGameWonOrTied(EventHandler<GameEndedEventArgs> callback)
+        {
+            ticTacToeGame.GameWonOrTied -= callback;
         }
         
         public void SetButtonsInteractable(bool interactable)
@@ -61,7 +75,7 @@ namespace TicTacToe.Gameplay.MVC.Controller
         public void ShowHint()
         {
             ticTacToeGame.Grid.GetRandomEmptyCellGridPosition(out int gridPositionX, out int gridPositionY);
-            view.ShowHint(gridPositionX, gridPositionY, nextSymbol);
+            view.ShowHint(gridPositionX, gridPositionY, symbolOnMove);
         }
 
         public void UndoLastTurn(int participantsCount)
@@ -101,21 +115,7 @@ namespace TicTacToe.Gameplay.MVC.Controller
                 Button button = gridButtons[i].GetComponent<Button>();
 
                 button.onClick.RemoveAllListeners();
-                button.onClick.AddListener(() => InteractWithCell(gridPositionX, gridPositionY));
-            }
-        }
-
-        private void InteractWithCell(int gridPositionX, int gridPositionY)
-        {
-            if (!IsCellOccupied(gridPositionX, gridPositionY))
-            {
-                AddSymbolCommand addSymbolCommand = new(nextSymbol, gridPositionX, gridPositionY);
-
-                view.ClearHint();
-                ticTacToeGame.ExecuteCommand(addSymbolCommand);
-                view.ShowSymbol(gridPositionX, gridPositionY, nextSymbol);
-
-                MoveMade?.Invoke(this, EventArgs.Empty);
+                button.onClick.AddListener(() => MakeMoveWithCurrentSymbol(gridPositionX, gridPositionY));
             }
         }
     }

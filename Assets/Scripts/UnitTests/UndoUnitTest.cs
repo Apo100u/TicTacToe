@@ -28,7 +28,7 @@ namespace TicTacToe.UnitTests
         public override void Act()
         {
             gridStateBeforeUndo = CopyGridState();
-            controller.InteractWithRandomEmptyCell();
+            controller.MakeRandomMoveWithCurrentSymbol();
             controller.UndoLastTurn(gameParticipants.Length);
             gridStateAfterUndo = CopyGridState();
         }

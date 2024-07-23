@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TicTacToe.Gameplay.GameParticipants;
 using TicTacToe.UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,8 +15,11 @@ namespace TicTacToe.MainMenu
         [SerializeField] private Button startGameButton;
         [SerializeField] private ParticipantChoiceWidget[] participantChoiceWidgets;
 
-        private void Start()
+        private GameBase.GameBase gameBase;
+        
+        public void Init(GameBase.GameBase gameBase)
         {
+            this.gameBase = gameBase;
             SetUpParticipantsChoiceWidgets();
         }
 
@@ -31,7 +35,8 @@ namespace TicTacToe.MainMenu
 
         private void StartGame()
         {
-            
+            gameBase.GameParticipants = GetChosenParticipants();
+            gameBase.LoadGameplay();
         }
 
         private void SetUpParticipantsChoiceWidgets()
@@ -46,6 +51,25 @@ namespace TicTacToe.MainMenu
             {
                 participantChoiceWidgets[i].SetOptions(participantsOptions);
             }
+        }
+
+        private GameParticipant[] GetChosenParticipants()
+        {
+            GameParticipant[] chosenParticipants = new GameParticipant[participantChoiceWidgets.Length];
+            
+            for (int i = 0; i < participantChoiceWidgets.Length; i++)
+            {
+                GameParticipant participant = participantChoiceWidgets[i].GetChosenOption() switch
+                {
+                    HumanPlayerChoiceName => new HumanParticipant(),
+                    ComputerPlayerChoiceName => new ComputerParticipant(),
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+
+                chosenParticipants[i] = participant;
+            }
+
+            return chosenParticipants;
         }
     }
 }

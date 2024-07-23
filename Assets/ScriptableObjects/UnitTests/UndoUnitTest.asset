@@ -16,3 +16,4 @@ MonoBehaviour:
   <Description>k__BackingField: Makes a move and undo and checks if the grid state
     after this operation is the same as before.
   <StartingSceneName>k__BackingField: Gameplay
+  gameSettingsToUse: {fileID: 11400000, guid: 4e1d81a441f14eb4caaec91418b92925, type: 2}

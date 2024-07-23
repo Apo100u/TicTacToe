@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using TicTacToe.Gameplay.GameParticipants;
 using TicTacToe.Gameplay.MVC.Controller;
 using TicTacToe.Gameplay.MVC.Model;
-using TicTacToe.ScriptableObjects;
 using TicTacToe.ScriptableObjects.HelperStructs;
 using TicTacToe.UI;
 using UnityEngine;
@@ -13,11 +12,11 @@ namespace TicTacToe.Gameplay
 {
     public class Gameplay : MonoBehaviour
     {
-        [SerializeField] private GameSettings gameSettings;
         [SerializeField] private TicTacToeController ticTacToeController;
         [SerializeField] private TurnTimer turnTimer;
         [SerializeField] private GameplayUtilities utilities;
         [SerializeField] private GameResultWidget gameResultWidget;
+        [SerializeField] private SpriteRenderer background;
         
         public static Balance Balance { get; private set; }
         public static Visuals Visuals { get; private set; }
@@ -33,6 +32,8 @@ namespace TicTacToe.Gameplay
             this.gameParticipants = gameParticipants;
             Balance = balance;
             Visuals = visuals;
+
+            background.sprite = Visuals.Background;
 
             utilities.Init(ticTacToeController, gameParticipants.Length);
 

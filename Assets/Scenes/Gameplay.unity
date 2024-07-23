@@ -3272,11 +3272,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea08487bd21be3445b697d6b3a1d05c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameSettings: {fileID: 11400000, guid: 4e1d81a441f14eb4caaec91418b92925, type: 2}
   ticTacToeController: {fileID: 342498147}
   turnTimer: {fileID: 231577080}
   utilities: {fileID: 17373326}
   gameResultWidget: {fileID: 5519554392271437359}
+  background: {fileID: 121686389}
 --- !u!1001 &2938459017206782399
 PrefabInstance:
   m_ObjectHideFlags: 0

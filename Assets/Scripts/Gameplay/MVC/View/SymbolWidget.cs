@@ -21,8 +21,8 @@ namespace TicTacToe.Gameplay.MVC.View
 
             displayImage.sprite = symbol switch
             {
-                Symbol.X => Gameplay.GameSettings.SpriteForSymbolX,
-                Symbol.O => Gameplay.GameSettings.SpriteForSymbolO,
+                Symbol.X => Gameplay.Visuals.SymbolX,
+                Symbol.O => Gameplay.Visuals.SymbolO,
                 null => null,
                 _ => throw new ArgumentOutOfRangeException(nameof(symbol), symbol, null)
             };

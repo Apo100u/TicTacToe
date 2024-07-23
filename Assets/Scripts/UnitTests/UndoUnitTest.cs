@@ -21,7 +21,7 @@ namespace TicTacToe.UnitTests
 
             gameParticipants = new GameParticipant[] { new HumanParticipant(), new ComputerParticipant() };
             
-            gameplay.Init(gameParticipants);
+            gameplay.Init(gameParticipants, gameSettingsToUse.Balance, gameSettingsToUse.Visuals);
             gameplay.StartNewTicTacToeGame();
         }
 

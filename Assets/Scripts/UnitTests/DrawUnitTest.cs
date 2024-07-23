@@ -14,8 +14,9 @@ namespace TicTacToe.UnitTests
         {
             gameplay = FindObjectOfType<Gameplay.Gameplay>();
             controller = FindObjectOfType<TicTacToeController>();
+            GameParticipant[] participants = {new HumanParticipant(), new HumanParticipant()};
 
-            gameplay.Init(new GameParticipant[] {new HumanParticipant(), new HumanParticipant()});
+            gameplay.Init(participants, gameSettingsToUse.Balance, gameSettingsToUse.Visuals);
             gameplay.StartNewTicTacToeGame();
         }
 

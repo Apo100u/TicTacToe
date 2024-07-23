@@ -21,7 +21,7 @@ namespace TicTacToe.UnitTests
             winningPlayer = new HumanParticipant();
             losingPlayer = new HumanParticipant();
             
-            gameplay.Init(new []{ winningPlayer, losingPlayer });
+            gameplay.Init(new []{ winningPlayer, losingPlayer }, gameSettingsToUse.Balance, gameSettingsToUse.Visuals);
             gameplay.StartNewTicTacToeGame();
         }
 

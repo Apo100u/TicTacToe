@@ -24,7 +24,7 @@ namespace TicTacToe.UnitTests
             humanPlayer = new HumanParticipant();
             computerPlayer = new ComputerParticipant();
             
-            gameplay.Init(new []{ humanPlayer, computerPlayer });
+            gameplay.Init(new []{ humanPlayer, computerPlayer }, gameSettingsToUse.Balance, gameSettingsToUse.Visuals);
             gameplay.StartNewTicTacToeGame();
         }
 

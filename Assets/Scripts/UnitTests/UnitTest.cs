@@ -1,3 +1,4 @@
+using TicTacToe.ScriptableObjects;
 using UnityEngine;
 
 namespace TicTacToe.UnitTests
@@ -7,6 +8,8 @@ namespace TicTacToe.UnitTests
         [field: SerializeField] public string Name { get; private set; }
         [field: SerializeField] public string Description { get; private set; }
         [field: SerializeField] public string StartingSceneName { get; private set; }
+
+        [SerializeField] protected GameSettings gameSettingsToUse;
         
         public abstract void Arrange();
         public abstract void Act();

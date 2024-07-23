@@ -16,7 +16,7 @@ namespace TicTacToe.Gameplay
         public void StartCountdown()
         {
             isStopped = false;
-            timeLeft = Gameplay.GameSettings.TurnTime;
+            timeLeft = Gameplay.Balance.TurnTime;
         }
 
         public void Stop()
@@ -29,7 +29,7 @@ namespace TicTacToe.Gameplay
             if (!isStopped && timeLeft > 0.0f)
             {
                 timeLeft -= Time.deltaTime;
-                widget.UpdateTimePercentage(timeLeft / Gameplay.GameSettings.TurnTime);
+                widget.UpdateTimePercentage(timeLeft / Gameplay.Balance.TurnTime);
 
                 if (timeLeft <= 0.0f)
                 {

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using TicTacToe.Gameplay.GameParticipants;
+using TicTacToe.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,6 +9,11 @@ namespace TicTacToe.GameBase
 {
     public class GameBase : MonoBehaviour
     {
+        [field: SerializeField] public Reskinner Reskinner { get; private set; }
+
+        [SerializeField] private GameSettings gameSettings;
+        
+        [Header("Scene Names")]
         [SerializeField] private string MainMenuSceneName;
         [SerializeField] private string GameplaySceneName;
         
@@ -51,7 +57,7 @@ namespace TicTacToe.GameBase
         private void OnGameplayLoaded()
         {
             Gameplay.Gameplay gameplay = FindObjectOfType<Gameplay.Gameplay>();
-            gameplay.Init(GameParticipants);
+            gameplay.Init(GameParticipants, gameSettings.Balance, Reskinner.CurrentVisuals);
             gameplay.StartNewTicTacToeGame();
         }
     }

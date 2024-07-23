@@ -4,6 +4,7 @@ using TicTacToe.Gameplay.GameParticipants;
 using TicTacToe.Gameplay.MVC.Controller;
 using TicTacToe.Gameplay.MVC.Model;
 using TicTacToe.ScriptableObjects;
+using TicTacToe.ScriptableObjects.HelperStructs;
 using TicTacToe.UI;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -18,7 +19,8 @@ namespace TicTacToe.Gameplay
         [SerializeField] private GameplayUtilities utilities;
         [SerializeField] private GameResultWidget gameResultWidget;
         
-        public static GameSettings GameSettings { get; private set; }
+        public static Balance Balance { get; private set; }
+        public static Visuals Visuals { get; private set; }
         
         public Symbol? Winner { get; private set; }
         public bool IsGameEnded { get; private set; }
@@ -26,10 +28,11 @@ namespace TicTacToe.Gameplay
         private int participantOnMoveIndex;
         private GameParticipant[] gameParticipants;
 
-        public void Init(GameParticipant[] gameParticipants)
+        public void Init(GameParticipant[] gameParticipants, Balance balance, Visuals visuals)
         {
             this.gameParticipants = gameParticipants;
-            GameSettings = gameSettings;
+            Balance = balance;
+            Visuals = visuals;
 
             utilities.Init(ticTacToeController, gameParticipants.Length);
 

@@ -62,6 +62,8 @@ namespace TicTacToe.GameBase
                 updatedVisuals.SymbolO = sprite;
                 CurrentVisuals = updatedVisuals;
             });
+
+            assetBundle.UnloadAsync(false);
         }
 
         private IEnumerator ReadBundleFile(string assetBundlePath)

@@ -1,12 +1,12 @@
+using System;
 using System.Collections.Generic;
-using TicTacToe.GameBase;
 using TicTacToe.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace TicTacToe.MainMenu
 {
-    public class MainMenu : SceneBase
+    public class MainMenu : MonoBehaviour
     {
         private const string HumanPlayerChoiceName = "Human";
         private const string ComputerPlayerChoiceName = "Computer";

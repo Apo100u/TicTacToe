@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using TicTacToe.GameBase;
 using TicTacToe.Gameplay.GameParticipants;
 using TicTacToe.Gameplay.MVC.Controller;
 using TicTacToe.Gameplay.MVC.Model;
@@ -11,7 +10,7 @@ using Random = UnityEngine.Random;
 
 namespace TicTacToe.Gameplay
 {
-    public class Gameplay : SceneBase
+    public class Gameplay : MonoBehaviour
     {
         [SerializeField] private GameSettings gameSettings;
         [SerializeField] private TicTacToeController ticTacToeController;
@@ -27,11 +26,9 @@ namespace TicTacToe.Gameplay
         private int participantOnMoveIndex;
         private GameParticipant[] gameParticipants;
 
-        public override void Init(GameBase.GameBase gameBase)
+        public void Init(GameParticipant[] gameParticipants)
         {
-            base.Init(gameBase);
-            
-            this.gameParticipants = gameBase.GetParticipants();
+            this.gameParticipants = gameParticipants;
             GameSettings = gameSettings;
 
             utilities.Init(ticTacToeController, gameParticipants.Length);

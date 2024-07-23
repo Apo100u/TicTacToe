@@ -13,6 +13,7 @@ namespace TicTacToe.MainMenu
         private const string ComputerPlayerChoiceName = "Computer";
 
         [SerializeField] private Button startGameButton;
+        [SerializeField] private InputFieldButtonWidget reskinWidget;
         [SerializeField] private ParticipantChoiceWidget[] participantChoiceWidgets;
 
         private GameBase.GameBase gameBase;

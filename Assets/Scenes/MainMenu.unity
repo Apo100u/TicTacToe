@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startGameButton: {fileID: 1658916570}
-  reskinWidget: {fileID: 0}
+  reskinWidget: {fileID: 8762989337524118579}
   participantChoiceWidgets:
   - {fileID: 6167812885267495742}
   - {fileID: 253433787}
@@ -1261,3 +1261,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a736d168882df6c43ae3b1b527376208, type: 3}
+--- !u!114 &8762989337524118579 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5294867412739533471, guid: a736d168882df6c43ae3b1b527376208, type: 3}
+  m_PrefabInstance: {fileID: 8762989337524118578}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffaef152b153dbf4baf8dfe066017963, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

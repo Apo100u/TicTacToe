@@ -22,6 +22,7 @@ namespace TicTacToe.MainMenu
         {
             this.gameBase = gameBase;
             SetUpParticipantsChoiceWidgets();
+            SetUpReskinWidget();
         }
 
         private void OnEnable()
@@ -52,6 +53,16 @@ namespace TicTacToe.MainMenu
             {
                 participantChoiceWidgets[i].SetOptions(participantsOptions);
             }
+        }
+
+        private void SetUpReskinWidget()
+        {
+            reskinWidget.ButtonClicked += OnReskinButtonClicked;
+        }
+
+        private void OnReskinButtonClicked(object sender, InputFieldButtonClickedEventArgs args)
+        {
+            gameBase.Reskinner.ReskinFromAssetBundle(args.InputFieldValue);
         }
 
         private GameParticipant[] GetChosenParticipants()

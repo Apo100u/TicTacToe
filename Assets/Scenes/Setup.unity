@@ -151,6 +151,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1ede4dc58d883a41b57ef1e69affa6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  backgroundAssetName: GameplayBackground
+  xSymbolAssetName: SymbolX
+  oSymbolAssetName: SymbolO
+  <CurrentVisuals>k__BackingField:
+    <Background>k__BackingField: {fileID: 0}
+    <SymbolX>k__BackingField: {fileID: 0}
+    <SymbolO>k__BackingField: {fileID: 0}
 --- !u!4 &444740109
 Transform:
   m_ObjectHideFlags: 0

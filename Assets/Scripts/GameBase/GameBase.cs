@@ -22,6 +22,8 @@ namespace TicTacToe.GameBase
         private void Start()
         {
             DontDestroyOnLoad(gameObject);
+            
+            Reskinner.Init(gameSettings.Visuals);
 
             LoadMainMenu();
         }
